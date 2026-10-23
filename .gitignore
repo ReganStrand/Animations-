@@ -1,6 +1,10 @@
 node_modules/
-out/**/contact*/
-out/**/stills/
-out/**/frames*/
 *.wav
-!no-keyframes/audio/stems/.keep
+# renders: keep the deliverables and the contact sheets, not the intermediates
+/out/*
+!/out/no-keyframes/
+/out/no-keyframes/*
+!/out/no-keyframes/final*.mp4
+!/out/no-keyframes/poster*.png
+!/out/no-keyframes/contact.png
+!/out/no-keyframes/contact_9x16.png
