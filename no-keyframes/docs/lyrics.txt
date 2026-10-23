@@ -1,27 +1,26 @@
-# No Keyframes: the voice-over, as spoken (audio/vo/source.m4a, voice memo)
+# No Keyframes: the voice-over as it plays in the film (audio/vo.wav: the memo with "Okay," cut, 1.00 s earlier)
 # '@ t0 t1 name' = alignment window in seconds; one on-screen line per row; word|spoken_form when they differ
-@ 0.55 5.90 open
-Okay,
+@ 0.30 4.90 open
 this is me using Claude Code
 to do some motion graphics design.
-@ 6.00 13.40 claim
+@ 5.00 12.40 claim
 I'm not creating anything
 from After Effects.
 This is all done
 inside of Claude Code.
 So—
-@ 13.60 19.60 list
+@ 12.60 18.60 list
 No desktop.
 No workstation.
 No After Effects.
 No keyframes.
-@ 19.70 21.80 wow
+@ 18.70 20.80 wow
 How incredible is this?
-@ 22.00 23.60 turn
+@ 21.00 22.60 turn
 Oh, and don't forget—
-@ 23.70 28.35 prompt
+@ 22.70 27.35 prompt
 this is all done
 not by a skill,
 but by a prompt
-@ 28.35 31.40 end
+@ 27.35 30.40 end
 and inside of Claude Code.

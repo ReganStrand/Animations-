@@ -228,6 +228,9 @@ export function crop(ctx, img, [sx, sy, sw, sh], x, y, w, h) { ctx.drawImage(img
 // ------------------------------------------------------------------ grid
 
 export let GRID = null, CFG = {};
+// The sub-frame sample being drawn: k of n (n = 1 without motion blur), and the output frame index.
+// A 3-D renderer jitters its camera by a sub-pixel per sample, so the blur accumulation anti-aliases too.
+export const SAMPLE = { k: 0, n: 1, frame: 0, fps: 60 };
 export const U = (t) => (t - GRID.offset) / GRID.period;   // seconds -> beats
 export const TS = (u) => GRID.offset + u * GRID.period;   // beats -> seconds
 
@@ -283,8 +286,10 @@ export async function film({ draw, init, post, fonts = [], images = {}, hits = [
   window.seek = (t) => {
     const t0 = t + 0.5 / fps;
     const n = typeof samples === 'function' ? samples(t0) : samples;
-    if (!blur || n <= 1) { frame(mctx, t0); runPost(t0); return; }
+    SAMPLE.frame = Math.round(t * fps); SAMPLE.fps = fps;
+    if (!blur || n <= 1) { SAMPLE.k = 0; SAMPLE.n = 1; frame(mctx, t0); runPost(t0); return; }
     for (let k = 0; k < n; k++) {
+      SAMPLE.k = k; SAMPLE.n = n;
       frame(bctx, t0 + (k / n) * (shutter / fps));
       mctx.globalAlpha = 1 / (k + 1);
       mctx.drawImage(buf, 0, 0);

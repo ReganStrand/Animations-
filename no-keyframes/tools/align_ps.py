@@ -93,6 +93,27 @@ for win in windows:
         print(f"{L['t0']:7.2f}-{L['t1']:7.2f} [{L['section']}] " + " ".join(f"{w['w']}@{w['t0']:.2f}" for w in L["words"]) + (f"  <- check: {crushed} crushed" if crushed >= 2 else ""))
         out.append(L)
 
+# Refine starts after a pause: the aligner lets a word's first phone soak up the silence before
+# it (the "this" after the cut started 80 ms early). Move such a start to where the voice's
+# 10 ms energy first rises 15 dB over the floor, if that is within 150 ms.
+hop = int(0.01 * sr)
+rms = np.array([np.sqrt(np.mean(y[i:i + hop] ** 2)) for i in range(0, len(y) - hop, hop)])
+db = 20 * np.log10(rms + 1e-9)
+floor = np.percentile(db, 10)
+prev_end = -1.0
+for L in out:
+    for w in L["words"]:
+        if w["t0"] - prev_end > 0.05:
+            i0 = int(max(w["t0"] - 0.03, 0) * 100)
+            hits = np.nonzero(db[i0:i0 + 18] > floor + 15)[0]
+            if len(hits):
+                t_on = round((i0 + hits[0]) / 100, 3)
+                if 0.005 < t_on - w["t0"] <= 0.15:
+                    print(f"  refined {w['w']}: {w['t0']:.2f} -> {t_on:.2f}")
+                    w["t0"] = t_on
+        prev_end = w["t1"]
+    L["t0"] = L["words"][0]["t0"]
+
 (film / "lyrics.json").write_text(json.dumps({"source": "docs/lyrics.txt aligned to audio/vo.wav (pocketsphinx en-us forced alignment)", "lines": out}, indent=1))
 
 import librosa

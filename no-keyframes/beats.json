@@ -58,9 +58,7 @@
   31.2,
   31.8,
   32.4,
-  33.0,
-  33.6,
-  34.2
+  33.0
  ],
- "note": "free-time score composed to the voice-over; this grid only paces contact sheets. Accents are word-locked (lyrics.json)."
+ "note": "free-time score composed to the voice-over (audio/score.py); this grid only paces contact sheets. Accents are word-locked (lyrics.json)."
 }

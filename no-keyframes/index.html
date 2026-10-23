@@ -4,10 +4,13 @@
 <meta charset="utf-8">
 <title>No Keyframes</title>
 <style>
-  /* Two faces only: one display, one UI. Point these at the brand's files in fonts/. */
-  @font-face { font-family: Display; src: url(fonts/display.woff2) format('woff2'), url(fonts/display.ttf) format('truetype'); font-weight: 100 900; }
-  @font-face { font-family: UI; src: url(fonts/ui.woff2) format('woff2'), url(fonts/ui.ttf) format('truetype'); font-weight: 100 900; }
-  html, body { margin: 0; height: 100%; background: #111; overflow: hidden; }
+  /* Two faces: Anton (display) and Inter (UI), Regan Strand brand. */
+  @font-face { font-family: Display; src: url(fonts/display.ttf) format('truetype'); font-weight: 400; }
+  @font-face { font-family: UI; src: url(fonts/ui-300.ttf) format('truetype'); font-weight: 300; }
+  @font-face { font-family: UI; src: url(fonts/ui-400.ttf) format('truetype'); font-weight: 400; }
+  @font-face { font-family: UI; src: url(fonts/ui-500.ttf) format('truetype'); font-weight: 500; }
+  @font-face { font-family: UI; src: url(fonts/ui-600.ttf) format('truetype'); font-weight: 600; }
+  html, body { margin: 0; height: 100%; background: #0c0d0e; overflow: hidden; }
   body { display: grid; place-items: center; }
   canvas { display: block; max-width: 100vw; max-height: 100vh; width: auto; height: auto; }
   #hud { position: fixed; left: 12px; bottom: 10px; font: 12px/1 ui-monospace, monospace; color: #888; }
