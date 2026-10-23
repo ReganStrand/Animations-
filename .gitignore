@@ -1,0 +1,6 @@
+node_modules/
+out/**/contact*/
+out/**/stills/
+out/**/frames*/
+*.wav
+!no-keyframes/audio/stems/.keep
